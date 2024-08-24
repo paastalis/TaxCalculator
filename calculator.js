@@ -1,6 +1,7 @@
 function calculateIncome() {
     const grossIncome = parseFloat(document.getElementById('grossIncome').value);
     let workload = parseFloat(document.getElementById('workload').value);
+    let pensionContribution = parseFloat(document.getElementById('pensionContribution').value);
 
     if (isNaN(workload) || workload === "") {
         workload = 1;
@@ -16,15 +17,17 @@ function calculateIncome() {
         return; 
     }
 
-    const taxRates = {
+    const incomeTaxRates = {
         2024: 0.22,
         2026: 0.24
     };
 
+    const unemploymentInsurance = 0.016;
+
     const adjustedIncome = grossIncome * workload;
 
-    const netIncome2024 = adjustedIncome * (1 - taxRates[2024]);
-    const netIncome2026 = adjustedIncome * (1 - taxRates[2026]);
+    const netIncome2024 = adjustedIncome * (1 - incomeTaxRates[2024] - unemploymentInsurance - (pensionContribution / 100));
+    const netIncome2026 = adjustedIncome * (1 - incomeTaxRates[2026] - unemploymentInsurance - (pensionContribution / 100));
     const difference = netIncome2024 - netIncome2026;
 
     document.getElementById('income2024').innerText = netIncome2024.toFixed(2);
