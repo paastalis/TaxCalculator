@@ -26,8 +26,8 @@ function calculateIncome() {
 
     const adjustedIncome = grossIncome * workload;
 
-    const netIncome2024 = adjustedIncome * (1 - incomeTaxRates[2024] - unemploymentInsurance - (pensionContribution / 100));
-    const netIncome2026 = adjustedIncome * (1 - incomeTaxRates[2026] - unemploymentInsurance - (pensionContribution / 100));
+    const netIncome2024 = adjustedIncome * (1 - pensionContribution/100) * (1 - incomeTaxRates[2024] - unemploymentInsurance);
+    const netIncome2026 = adjustedIncome * (1 - pensionContribution/100) * (1 - incomeTaxRates[2026] - unemploymentInsurance);
     const difference = netIncome2024 - netIncome2026;
 
     document.getElementById('income2024').innerText = netIncome2024.toFixed(2);
